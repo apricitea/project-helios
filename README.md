@@ -1,17 +1,15 @@
 # project-helios
 
-A telco Customer Value Management (CVM) analytics & ML lab: synthetic-scale ETL, data
-quality checks, LLM-narrative alerting, and churn / late-payment risk models — built on
-DuckDB with public and synthetic data only.
+A telco Customer Value Management (CVM) analytics & ML lab built on the [IBM Telco Customer
+Churn dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) (Kaggle) and a
+synthetically generated usage/billing event stream (seeded, ~1M rows across 150 days).
 
-This project is a from-scratch reimplementation of engineering *patterns* (idempotent
-pipeline design, data-quality gating, templated pipeline routing, documentation-first
-repo structure for AI-agent collaboration, graceful-degradation LLM integration, and
-calibrated binary-classifier decomposition for ambiguous risk labels) commonly used in
-production telco analytics. No proprietary code, schemas, or data are used anywhere in
-this repo — subscriber data is the public [IBM Telco Customer Churn dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn),
-and usage/billing event volume is synthetically generated (seeded, ~1M rows at 150 days)
-to demonstrate pipeline behavior at warehouse scale.
+Idempotent DuckDB warehouse ETL with a data-quality gate, an LLM-narrative ops report with
+explicit graceful degradation, and two independently-calibrated risk models — churn and late
+payment — instead of one shared multiclass model. Domain and engineering patterns (idempotent
+pipelines, DQ gating, documentation-first repo structure for AI-agent collaboration,
+leakage-safe label construction) draw on production telco CVM engineering; all code, schemas,
+and data in this repo are original and public.
 
 ## Status
 
@@ -52,14 +50,14 @@ src/project_helios/
 └── model/       # Churn / late-payment risk models (calibrated binary classifiers)
 ```
 
-## Results (real data, IBM Telco Customer Churn + synthetic usage)
+## Results (IBM Telco Customer Churn + synthetic usage)
 
 | Model | AUC | Brier score |
 |---|---|---|
 | Churn | 0.823 | 0.147 |
 | Late payment (30-day forward window) | 0.628 | 0.065 |
 
-Late-payment label is built from a strictly forward-looking window after the feature
-`as_of_date` — verified by test (`tests/test_dataset.py`) that a longer forward horizon
-can only add positives, never remove them, which would be impossible if the label leaked
-from the same backward-looking window used to build the features.
+The late-payment label is built from a strictly forward-looking window after the feature
+`as_of_date` — verified by test (`tests/test_dataset.py`) that widening the forward horizon
+can only add positive labels, never remove them, a property that would break if the label
+were secretly reading the same backward-looking window used to build the features.
