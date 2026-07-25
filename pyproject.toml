@@ -1,0 +1,30 @@
+[project]
+name = "project-helios"
+version = "0.1.0"
+description = "Telco CVM analytics & ML lab: synthetic-scale ETL, data quality, LLM-narrative alerting, and churn/late-payment risk models on DuckDB"
+readme = "README.md"
+authors = [
+    { name = "Alvin C. Nataputra", email = "apeirodox@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+project-helios = "project_helios:main"
+
+[build-system]
+requires = ["uv_build>=0.11.26,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["ruff", "pytest"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

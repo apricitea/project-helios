@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Data & secrets
+.env
+.envrc.local
+data/*
+!data/.gitkeep
+*.csv
+*.parquet
+*.xlsx
+*.db
+*.sqlite*
+.ipynb_checkpoints/
+outputs/
+models/*.pt
+models/*.bin
