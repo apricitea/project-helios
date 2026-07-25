@@ -18,6 +18,7 @@ data/*
 *.parquet
 *.xlsx
 *.db
+*.duckdb
 *.sqlite*
 .ipynb_checkpoints/
 outputs/
