@@ -1,5 +1,8 @@
 # project-helios
 
+[![CI](https://github.com/apricitea/project-helios/actions/workflows/ci.yml/badge.svg)](https://github.com/apricitea/project-helios/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A telco Customer Value Management (CVM) analytics & ML lab built on the [IBM Telco Customer
 Churn dataset](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) (Kaggle) and a
 synthetically generated usage/billing event stream (seeded, ~1M rows across 150 days).
@@ -56,6 +59,8 @@ src/project_helios/
 |---|---|---|
 | Churn | 0.823 | 0.147 |
 | Late payment (30-day forward window) | 0.628 | 0.065 |
+
+![Holdout AUC and Brier score for the two independently calibrated models](docs/figures/model_metrics.png)
 
 The late-payment label is built from a strictly forward-looking window after the feature
 `as_of_date` — verified by test (`tests/test_dataset.py`) that widening the forward horizon
