@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this work, cite it as below."
+type: software
+title: "project-helios: telco CVM analytics and ML lab"
+authors:
+  - family-names: Nataputra
+    given-names: Alvin Christian
+    website: https://apricitea.github.io
+repository-code: "https://github.com/apricitea/project-helios"
+url: "https://apricitea.github.io"
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-25"
+abstract: >-
+  Idempotent DuckDB warehouse with a data-quality gate that aborts before downstream
+  writes, two independently calibrated risk models for churn and late payment, a
+  leakage test enforcing the forward-looking label window, and an LLM-written ops
+  narrative with explicit graceful degradation.
